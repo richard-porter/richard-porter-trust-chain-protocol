@@ -1,7 +1,7 @@
 # richard-porter-trust-chain-protocol
 If you need the network-layer extension of the Frozen Kernel.
 
-# 🔗 Trust Chain Protocol (TCP)
+## 🔗 Trust Chain Protocol (TCP)
 
 **A Coordination Safety Framework for Multi-Agent AI Systems**
 
@@ -131,7 +131,28 @@ TCP does **not** require all agents to use identical Frozen Kernel implementatio
 
 -----
 
-## Known Limitations
+## OWASP ASI Top 10 Mapping
+
+The OWASP Top 10 for Agentic Applications 2026 is the emerging peer-reviewed standard for agentic security risk, developed with input from over 100 experts including NIST, Microsoft, AWS, and Cisco. TCP maps against it as follows:
+
+|Risk |Category                          |TCP Coverage      |Notes                                                                                                                                                         |
+|-----|----------------------------------|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|ASI01|Agent Goal Hijack                 |**Partial**       |Chain of Custody verifies authorization, not content. Context Contamination (§2.2) names this failure mode; content-layer validation is a required complement.|
+|ASI02|Tool Misuse                       |**Strong**        |Delegation Grammar’s Action Scope and Resource Bounds implement OWASP’s “least agency” principle at the token level.                                          |
+|ASI03|Identity & Privilege Abuse        |**Strong**        |TCP’s core problem statement. Chain of Custody closes the attribution gap. “Scope can only narrow” prevents credential escalation.                            |
+|ASI04|Supply Chain Compromise           |**Not Covered**   |Honest gap. A compromised tool with a valid FK signature passes TCP verification. Requires separate tooling (e.g., SecureClaw).                               |
+|ASI05|Insecure Inter-Agent Communication|**Primary Domain**|TCP’s primary domain. Cisco L8/L9 address protocol/semantic layers; TCP addresses the authorization layer. Combined coverage is comprehensive.                |
+|ASI06|Unexpected Code Execution         |**Not Covered**   |Out of scope by design. TCP governs delegation authorization, not code generation.                                                                            |
+|ASI07|Memory & Context Poisoning        |**Partial**       |Expiry and Delegation Depth limit temporal authorization scope. Partial mitigation only.                                                                      |
+|ASI08|Cascading Failures                |**Moderate**      |Scope Decay’s “4+ hops = refusal” is a blast radius containment mechanism.                                                                                    |
+|ASI09|Human-Agent Trust Exploitation    |**Indirect**      |Scope Decay forces human re-authorization at depth thresholds. Frozen Kernel anti-sycophancy is the more direct mitigation.                                   |
+|ASI10|Rogue Agents                      |**Partial**       |TCP refuses non-compliant agents. Sophisticated rogue agents with valid-looking chain signatures exploit the agent identity gap (§6.4).                       |
+
+TCP’s primary value in the OWASP framework is at **ASI05, ASI03, and ASI02** — mapping directly to Chain of Custody, Delegation Grammar, and Scope Decay. Gaps at ASI04 and ASI06 are honest and require different tooling.
+
+**Relationship to SecureClaw:** SecureClaw (Adversa AI, February 2026) provides tool-level hardening and behavioral auditing for OpenClaw installations, mapped against all 10 OWASP ASI threat classes. TCP governs the authorization layer; SecureClaw secures individual nodes. A fully secured Internet of Agents deployment would use both — SecureClaw at each node, TCP at the network layer.
+
+-----
 
 This is a working draft. These gaps are documented openly, not papered over.
 
@@ -201,13 +222,15 @@ This repository is part of a larger body of work on human-AI collaboration safet
 
 ## Version History
 
-|Version|Date         |Status                                                                                                        |
-|-------|-------------|--------------------------------------------------------------------------------------------------------------|
-|0.1    |February 2026|Initial draft. Problem definition, core architecture, three components. Open for critique.                    |
-|0.2    |February 2026|Diagrams added from companion slide deck. Minor text refinements.                                             |
-|0.3    |February 2026|Context Contamination added as failure mode six. BFT lineage added. Internet of Agents terminology introduced.|
-|0.4    |February 2026|OWASP ASI Top 10 mapping added as Section 7. SecureClaw and Cisco L8/L9 referenced. Sections renumbered.      |
-|1.0    |TBD          |First stable. Requires: formal grammar definition, threshold validation, agent identity model.                |
+|Version|Date         |Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|-------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|0.1    |February 2026|Initial draft. Problem definition, core architecture, three components. Open for critique.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|0.2    |February 2026|Diagrams added from companion slide deck. Minor text refinements.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+|0.3    |February 2026|Context Contamination added as failure mode six. BFT lineage added. Internet of Agents terminology introduced.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|0.4    |February 2026|OWASP ASI Top 10 mapping added as Section 7. SecureClaw and Cisco L8/L9 referenced. Sections renumbered.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|0.5    |February 2026|Three new lineage citations: Fearne/Moltbook network-layer analysis, Galliera et al. MARL safety paper, GraphGuard OS convergent implementation.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|0.6    |February 2026|Major GraphGuard OS expansion covering both Part 1 and Part 2: full 7-step Guarded Gateway pipeline, Federated Firewalls (distributed consensus), SMT Plan Verifier (formal proof), Adaptive Budget Manager (behavioral reputation), Chaos Safety Tester. Three new Known Limitations: adversarial testing gap, constraint authoring accessibility, shared substrate design principle. Three new Research Questions: behavioral reputation in authorization chains, revocation model, temporal evidence staleness as distinct from authorization expiry. SecureClaw separated as standalone lineage entry.|
+|1.0    |TBD          |First stable. Requires: formal grammar definition, threshold validation, agent identity model.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 -----
 
