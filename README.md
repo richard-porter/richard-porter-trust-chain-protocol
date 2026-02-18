@@ -160,6 +160,18 @@ If you’re working on any of these, issues and PRs are open.
 
 -----
 
+## OWASP ASI Top 10 Mapping
+
+The [OWASP Top 10 for Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) (ASI01–ASI10) is the peer-reviewed industry standard for agentic security risk, developed with input from over 100 experts including NIST, Microsoft, AWS, and Cisco. TCP is an authorization-layer framework — it governs whether agents are permitted to act, not whether the content they act on is safe. The table in the full document maps TCP’s precise coverage of each risk.
+
+**Strong coverage:** ASI02 (Tool Misuse) — Delegation Grammar’s Action Scope and Resource Bounds implement OWASP’s “least agency” principle at the token level. ASI03 (Identity & Privilege Abuse) — TCP’s core problem statement; Chain of Custody and “scope can only narrow” directly address the attribution gap. ASI05 (Insecure Inter-Agent Communication) — TCP’s primary domain; Cisco’s L8/L9 layers (protocol/semantic) and TCP (authorization) together provide comprehensive coverage.
+
+**Partial/indirect coverage:** ASI01 (Agent Goal Hijack) — Chain of Custody verifies authorization but not content; Context Contamination (§2.2) names this failure mode. ASI07 (Memory & Context Poisoning) — Delegation Depth and Expiry limit temporal authorization scope. ASI08 (Cascading Failures) — Scope Decay’s “4+ hops = refusal” functions as blast radius containment. ASI09 (Human-Agent Trust Exploitation) — Scope Decay preserves a mandatory human check-in at depth thresholds. ASI10 (Rogue Agents) — TCP refuses non-compliant agents, but sophisticated rogue agents exploiting the agent identity gap remain a hard problem.
+
+**Honest gaps:** ASI04 (Supply Chain Compromise) — a compromised tool with a valid Frozen Kernel signature passes TCP verification; [SecureClaw](https://github.com/adversa-ai/secureclaw) (Adversa AI, February 2026) addresses this for OpenClaw environments. ASI06 (Unexpected Code Execution) — out of scope; TCP governs delegation authorization, not code generation.
+
+-----
+
 ## Intellectual Lineage
 
 **Byzantine Fault Tolerance (BFT)** — Distributed systems research addressing consensus when some participants may be faulty or adversarial. BFT protocols require quorum before executing high-impact actions. TCP’s Chain of Custody arrives at a parallel insight from a different direction: authorization cannot proceed without a verifiable chain, just as BFT says action cannot proceed without quorum. Complementary approaches — BFT at the consensus layer, TCP at the authorization layer — that could be stacked in a full implementation.
@@ -194,6 +206,7 @@ This repository is part of a larger body of work on human-AI collaboration safet
 |0.1    |February 2026|Initial draft. Problem definition, core architecture, three components. Open for critique.                    |
 |0.2    |February 2026|Diagrams added from companion slide deck. Minor text refinements.                                             |
 |0.3    |February 2026|Context Contamination added as failure mode six. BFT lineage added. Internet of Agents terminology introduced.|
+|0.4    |February 2026|OWASP ASI Top 10 mapping added as Section 7. SecureClaw and Cisco L8/L9 referenced. Sections renumbered.      |
 |1.0    |TBD          |First stable. Requires: formal grammar definition, threshold validation, agent identity model.                |
 
 -----
