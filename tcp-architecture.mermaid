@@ -1,27 +1,27 @@
 graph TD
-H[“👤 Human Principal<br/>(Authorization Origin)”]
+H[“Human Principal\nAuthorization Origin”]
 
 ```
-subgraph FK["🧊 Frozen Kernel — Single Agent Safety Floor"]
-    A1["Agent A<br/><i>Delegation Depth: 2</i>"]
-    A2["Agent B<br/><i>Delegation Depth: 1</i>"]
-    A3["Agent C<br/><i>Delegation Depth: 0</i>"]
+subgraph FK["Frozen Kernel — Single Agent Safety Floor"]
+    A1["Agent A\nDelegation Depth: 2"]
+    A2["Agent B\nDelegation Depth: 1"]
+    A3["Agent C\nDelegation Depth: 0"]
 end
 
-subgraph DG["📋 Delegation Grammar"]
-    TOKEN["Token Fields:<br/>• Action Scope (closed enum)<br/>• Resource Bounds<br/>• Delegation Depth<br/>• Expiry Timestamp"]
+subgraph DG["Delegation Grammar"]
+    TOKEN["Token Fields\nAction Scope\nResource Bounds\nDelegation Depth\nExpiry Timestamp"]
 end
 
-subgraph CC["🔗 Chain of Custody"]
-    LOG["Pre-Action Record:<br/>• Receiving agent ID<br/>• Instruction hash<br/>• Delegation token<br/>• Timestamp + Signature"]
+subgraph CC["Chain of Custody"]
+    LOG["Pre-Action Record\nReceiving agent ID\nInstruction hash\nDelegation token\nTimestamp and Signature"]
 end
 
-subgraph SD["📉 Scope Decay"]
+subgraph SD["Scope Decay"]
     HOP0["Hop 0 — Full scope"]
     HOP1["Hop 1 — Full scope"]
-    HOP2["Hop 2 — No write/send"]
+    HOP2["Hop 2 — No write or send"]
     HOP3["Hop 3 — Read-only"]
-    HOP4["Hop 4+ — ⛔ REFUSE<br/>Surface to human"]
+    HOP4["Hop 4+ — REFUSE\nSurface to human"]
     HOP0 --> HOP1 --> HOP2 --> HOP3 --> HOP4
 end
 
@@ -37,7 +37,7 @@ CC -.->|"Required before action"| A3
 SD -.->|"Narrows scope at each hop"| A2
 SD -.->|"Narrows scope at each hop"| A3
 
-FAIL["⚠️ Failure Modes Addressed:<br/>Scope Creep by Delegation<br/>Authority Spoofing<br/>Intent Drift<br/>Untraceable Action Chains<br/>Context Contamination<br/>Constraint Erosion"]
+FAIL["Failure Modes Addressed\nScope Creep by Delegation\nAuthority Spoofing\nIntent Drift\nUntraceable Action Chains\nContext Contamination\nConstraint Erosion"]
 
 A1 & A2 & A3 -.-> FAIL
 
