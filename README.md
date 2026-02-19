@@ -151,6 +151,12 @@ The OWASP Top 10 for Agentic Applications 2026 is the emerging peer-reviewed sta
 
 TCP’s primary value in the OWASP framework is at **ASI05, ASI03, and ASI02** — mapping directly to Chain of Custody, Delegation Grammar, and Scope Decay. Gaps at ASI04 and ASI06 are honest and require different tooling.
 
+**Strong coverage:** ASI02 (Tool Misuse) — Delegation Grammar’s Action Scope and Resource Bounds implement OWASP’s “least agency” principle at the token level. ASI03 (Identity & Privilege Abuse) — TCP’s core problem statement; Chain of Custody and “scope can only narrow” directly address the attribution gap. ASI05 (Insecure Inter-Agent Communication) — TCP’s primary domain; Cisco’s L8/L9 layers (protocol/semantic) and TCP (authorization) together provide comprehensive coverage.
+
+**Partial/indirect coverage:** ASI01 (Agent Goal Hijack) — Chain of Custody verifies authorization but not content; Context Contamination (§2.2) names this failure mode. ASI07 (Memory & Context Poisoning) — Delegation Depth and Expiry limit temporal authorization scope. ASI08 (Cascading Failures) — Scope Decay’s “4+ hops = refusal” functions as blast radius containment. ASI09 (Human-Agent Trust Exploitation) — Scope Decay preserves a mandatory human check-in at depth thresholds. ASI10 (Rogue Agents) — TCP refuses non-compliant agents, but sophisticated rogue agents exploiting the agent identity gap remain a hard problem.
+
+**Honest gaps:** ASI04 (Supply Chain Compromise) — a compromised tool with a valid Frozen Kernel signature passes TCP verification; [SecureClaw](https://github.com/adversa-ai/secureclaw) (Adversa AI, February 2026) addresses this for OpenClaw environments. ASI06 (Unexpected Code Execution) — out of scope; TCP governs delegation authorization, not code generation.
+
 **Relationship to SecureClaw:** SecureClaw (Adversa AI, February 2026) provides tool-level hardening and behavioral auditing for OpenClaw installations, mapped against all 10 OWASP ASI threat classes. TCP governs the authorization layer; SecureClaw secures individual nodes. A fully secured Internet of Agents deployment would use both — SecureClaw at each node, TCP at the network layer.
 
 -----
@@ -179,18 +185,6 @@ This is a working draft. These gaps are documented openly, not papered over.
 1. Can the chain of custody mechanism be made efficient enough for high-frequency tasks, or does TCP require a tiered model where some task classes are exempt?
 
 If you’re working on any of these, issues and PRs are open.
-
------
-
-## OWASP ASI Top 10 Mapping
-
-The [OWASP Top 10 for Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) (ASI01–ASI10) is the peer-reviewed industry standard for agentic security risk, developed with input from over 100 experts including NIST, Microsoft, AWS, and Cisco. TCP is an authorization-layer framework — it governs whether agents are permitted to act, not whether the content they act on is safe. The table in the full document maps TCP’s precise coverage of each risk.
-
-**Strong coverage:** ASI02 (Tool Misuse) — Delegation Grammar’s Action Scope and Resource Bounds implement OWASP’s “least agency” principle at the token level. ASI03 (Identity & Privilege Abuse) — TCP’s core problem statement; Chain of Custody and “scope can only narrow” directly address the attribution gap. ASI05 (Insecure Inter-Agent Communication) — TCP’s primary domain; Cisco’s L8/L9 layers (protocol/semantic) and TCP (authorization) together provide comprehensive coverage.
-
-**Partial/indirect coverage:** ASI01 (Agent Goal Hijack) — Chain of Custody verifies authorization but not content; Context Contamination (§2.2) names this failure mode. ASI07 (Memory & Context Poisoning) — Delegation Depth and Expiry limit temporal authorization scope. ASI08 (Cascading Failures) — Scope Decay’s “4+ hops = refusal” functions as blast radius containment. ASI09 (Human-Agent Trust Exploitation) — Scope Decay preserves a mandatory human check-in at depth thresholds. ASI10 (Rogue Agents) — TCP refuses non-compliant agents, but sophisticated rogue agents exploiting the agent identity gap remain a hard problem.
-
-**Honest gaps:** ASI04 (Supply Chain Compromise) — a compromised tool with a valid Frozen Kernel signature passes TCP verification; [SecureClaw](https://github.com/adversa-ai/secureclaw) (Adversa AI, February 2026) addresses this for OpenClaw environments. ASI06 (Unexpected Code Execution) — out of scope; TCP governs delegation authorization, not code generation.
 
 -----
 
