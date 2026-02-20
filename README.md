@@ -1,5 +1,5 @@
 # richard-porter-trust-chain-protocol
-If you need the network-layer extension of the Frozen Kernel.
+Network-layer safety architecture for multi-agent AI systems. Trust propagation, session governance, agent identity
 
 ## 🔗 Trust Chain Protocol (TCP)
 
